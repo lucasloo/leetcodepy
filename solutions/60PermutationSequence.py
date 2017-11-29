@@ -28,7 +28,7 @@ class Solution:
     # @param {integer} k
     # @return {string}
     def getPermutation(self, n, k):
-        numbers = range(1, n+1)
+        numbers = list(range(1, n+1))
         permutation = ''
         k -= 1
         while n > 0:
