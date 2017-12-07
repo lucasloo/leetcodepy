@@ -34,21 +34,19 @@ class Solution:
             return 0
         return dfs(s)
 # using dfs exceeded time limit
-
-class Solution(object):
+class Solution:
+    # @param s, a string
+    # @return an integer
     def numDecodings(self, s):
-        if not len(s) or s[0] == '0':
+        if not s:
             return 0
-        total = 1
-        pre = 1
-        for i in range(1, len(s)):
-            if s[i] == '0':
-                if not s[i-1] in '12':
-                    return 0
-                total = pre
-                continue
-            elif int(s[i-1:i+1]) < 27 and s[i-1] != '0':
-                pre, total = total, total+pre
-            else:
-                pre = total
-        return total
+        n = len(s)
+        dp = [0] * (n + 1)
+        dp[0] = 1
+        for i in range(1, n + 1):
+            if s[i-1] != '0':
+                dp[i] += dp[i-1]
+            if len(s[i-2:i]) == 2 and "10" <= s[i-2:i] <= "26":
+                dp[i] += dp[i-2]
+        print(dp)
+        return dp[n]
